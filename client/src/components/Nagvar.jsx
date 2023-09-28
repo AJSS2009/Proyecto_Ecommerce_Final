@@ -10,7 +10,9 @@ const Navbar = () => {
     const navHandler = () => { setNav(!nav) }
     return (
         <div className='w-full h-25 gb-black flex justify-between item-center' >
-            <h1 className="text-white font-bold md:text-4x1 sm:3x1 text-xl p-3">Tienda en Linea</h1>
+            <h1 className="text-white font-bold md:text-4x1 sm:3x1 text-xl p-3">
+                Tienda en Linea
+            </h1>
             <ul className="hidden md:flex p-3">
                 <Link to="/">
                     <li className="text-white font-bold p-2 hover:bg-[#2C2A2A] cursor-pointer">
@@ -52,7 +54,6 @@ const Navbar = () => {
                 <h1 className="text-white font-bold md:text-4x1 sm:3x1 text-xl p-3">Tienda en Linea</h1>
                 <ul className="flex flex-col text-left p-3">
                     <Link to="/">
-                        {" "}
                         <li className="text-white font-bold p-2 hover:bg-[#2C2A2A] cursor-pointer">
                             Inicio</li>
                     </Link>
