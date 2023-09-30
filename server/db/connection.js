@@ -1,12 +1,20 @@
-const mongoose = require("mongoose");
+const pgp = require("pg-promise")();
 
-const connect = mongoose
-  .connect(process.env.CONECTION_URL)
-  .then((res) => {
-    console.log("Base de Datos Conectada")
+const db = pgp({
+  host: "localhost",
+  user: "postgres",
+  password: "12346",
+  database: "peliculas",
+  allowExitOnIdle: true,
+});
+
+db.connect()
+  .then((obj) => {
+    console.log("Base de Datos Conectada");
+    obj.done();
   })
-  .catch((err) => {
-    console.log(`Conexion con la Base con error: ${err}`);
+  .catch((error) => {
+    console.log(`Conexion con la Base con error: ${error}`);
   });
 
-module.exports = connect;
+module.exports = db;

@@ -3,9 +3,12 @@ const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const userRoute = require("./router/userRouter");
 
-const connect = require("./db/connection");
+
 dotenv.config({ path: "./config.env" });
+const connect = require("./db/connection");
+
 const app = express();
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -16,6 +19,9 @@ app.use(
     credentials: true,
   })
 );
+
+app.post("/api/usuario", userRoute);
+
 
 const port = process.env.PORT || 8080;
 
