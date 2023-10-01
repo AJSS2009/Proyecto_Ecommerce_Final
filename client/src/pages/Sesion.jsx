@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
 
 const Sesion = () => {
+
+  const navigate= useNavigate();
 
   const [inputs, setInputs] = useState({
     usuario: "",
@@ -18,6 +24,57 @@ const Sesion = () => {
     e.preventDefault();
 
     console.log(inputs);
+    axios
+    .post("http://localhost:5000/api/usuario/sesion",
+      { ...inputs },
+      { withCredentials: true }
+    )
+    .then((res) => {
+      console.log(res);
+
+      if (!res.data.created) {
+        if (res.data.error_type === 0) {
+          toast.error(res.data.error[0].msg, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        } else if (res.data.error_type === 1) {
+          toast.error(res.data.message, {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
+      }
+
+      if (res.data.created) {
+        toast.success(res.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        navigate("/");
+      }
+    })
+    .catch((err) => {
+      console.log(`ERROR EN SOLICITUD: ${err}`);
+    });
   }
 
   return (
@@ -59,6 +116,7 @@ const Sesion = () => {
           <a href="." className="text-blue-500">¿Olvidaste la Contraseña?</a>
         </div>
       </form>
+      <ToastContainer />
     </div>
   )
 }
