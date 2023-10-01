@@ -11,9 +11,6 @@ const Reducer = (state, action) => {
     }
 };
 
-
-
-
 export const GlobalContext = createConext(initialState);
 
 export const GlobalContextProvider = ({ children }) => {
@@ -26,8 +23,9 @@ export const GlobalContextProvider = ({ children }) => {
         });
     };
 
-    <GlobalContext.Provider 
-    value={{ IsLoggedIn, LoginStatus: state.IsLoggIn }} >
-         
+    <GlobalContext.Provider
+        value={{ IsLoggedIn, LoginStatus: state.IsLoggIn }} >
+        {children}
+
     </GlobalContext.Provider>
 }
